@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auto Parts - Login</title>
   <style>
-    /* --- STIL GENERAL --- */
     body {
       margin: 0;
       padding: 0;
@@ -21,7 +20,6 @@
       color: white;
     }
 
-    /* --- TITLU --- */
     h1 {
       font-size: 70px;
       text-align: center;
@@ -29,7 +27,6 @@
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* --- FORMULAR LOGIN --- */
     .login-box {
       background: rgba(0, 0, 0, 0.6); /* fundal transparent peste imagine */
       padding: 40px;
@@ -71,11 +68,11 @@
   <h1>Auto Parts</h1>
 
   <div class="login-box">
-    <form action="#" method="post">
-      <input type="text" name="username" placeholder="Utilizator" required>
-      <input type="password" name="password" placeholder="Parolă" required>
-      <input type="submit" value="Conectează-te">
-    </form>
+    <form onsubmit="event.preventDefault(); window.location.href='index.html';">
+  <input type="text" name="username" placeholder="Utilizator" required>
+  <input type="password" name="password" placeholder="Parolă" required>
+  <input type="submit" value="Conectează-te">
+</form>
   </div>
 
 </body>
