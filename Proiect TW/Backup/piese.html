@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Parts - Toate piesele</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #007BFF;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 50px 0 20px;
+      color: #007BFF;
+    }
+
+    .categorii {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .categorii a {
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .categorii a:hover {
+      background-color: #0056b3;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 0 10% 60px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #007BFF;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Auto Parts</h1>
+    <nav>
+      <a href="index.html">Acasă</a>
+      <a href="piese.html">Piese</a>
+      <a href="despre.html">Despre noi</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <h1>Toate piesele disponibile</h1>
+
+  <div class="categorii">
+    <a href="motor.html">Motor</a>
+    <a href="frane.html">Frâne</a>
+    <a href="suspensii.html">Suspensii</a>
+    <a href="caroserie.html">Caroserie</a>
+  </div>
+
+  <div class="grid">
+    <!-- EXEMPLE DE CARDURI DE COMPLETAT -->
+    <div class="card">
+      <img src="https://tonmaxenginesscc.co.za/uploads/8/0/7/8/80781886/bmw-m47-3_orig.jpg" alt="Motor BMW">
+      <div class="card-content">
+        <h3>Motor BMW E46 2.0D M47D20TU</h3>
+        <p>Motor complet, verificat, 254729. Garanție 30 zile.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://vagparts.ie/wp-content/uploads/2019/07/20190711_140742.jpg" alt="Disc frână Audi">
+      <div class="card-content">
+        <h3>Discuri frână Audi A4</h3>
+        <p>Disc frână original Audi, în stare foarte bună, fără uzură excesivă.</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://frankfurt.apollo.olxcdn.com/v1/files/hkq5r0050abk2-RO/image;s=1000x700" alt="Suspensie AirMatic">
+      <div class="card-content">
+        <h3>Suspensie AirMatic Mercedes</h3>
+        <p>Kit complet suspensie airmatic, provenienta: Mercedes CLS 2012</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/interior-m3-recaro-sport-scaune-piele-incalzite/interior-m3-recaro-sport-scaune-piele-incalzite-fb38df0c086b0b7f2f-0-0-0-0-0.jpg" alt="Interior M3 recaro sport">
+      <div class="card-content">
+        <h3>Interior M3 E36 recaro sport</h3>
+        <p>Interior ///M3 recaro sport scaune piele incalzite bmw e36 berlina</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/far-dreapta-full-led-bmw-m3-f80-m4-f82/far-dreapta-full-led-bmw-m3-f80-m4-f82-9078afea97790b9ad4-0-0-0-0-0.jpg" alt="Interior M3 recaro sport">
+      <div class="card-content">
+        <h3>Far dreapta full led, Bmw M3 F80, M4 F82</h3>
+        <p>Functie cornering, faza lunga automata, stare foarte buna</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/haion-vw-passat-b6-break/haion-vw-passat-b6-break-7024854922a10aef27-0-0-0-0-0.jpg" alt="Hayon VW Passat B6">
+      <div class="card-content">
+        <h3>Hayon VW Passat B6</h3>
+        <p>Se vinde cu tot cu stopuri interioare si incuietoare, usor ruginit.</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/kit-plansa-bord-seat-leon-3-2012-2016/kit-plansa-bord-seat-leon-3-2012-2016-4d42e111118948ea7b4-0-0-0-0-0.jpg" alt="Kit plansa bord Seat Leon 3 2012-2016">
+      <div class="card-content">
+        <h3>Kit plansa bord conversie Seat Leon 3 2012-2016</h3>
+        <p>Nedeteriorat, perfect pentru masinile aduse din UK!</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/volan-m-cu-padele-bmw-f10/volan-m-cu-padele-bmw-f10-bdde7539eee101b1f1-0-0-0-0-0.jpg" alt="Volan M">
+      <div class="card-content">
+        <h3>Volan M cu padele</h3>
+        <p>Provenienta: BMW F10</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/planetara-fata-volvo-xc90-2004-2-4-diesel-cod/planetara-fata-volvo-xc90-2004-2-4-diesel-cod-c07d6f40063f09af6e-0-0-0-0-0.jpg" alt="Planetara volvo">
+      <div class="card-content">
+        <h3>Planetara fata Volvo XC90</h3>
+        <p>Planetara fata Volvo XC90 2004 2.4 Diesel Cod Motor D5244T 163CP/120KW</p>
+      </div>
+    </div>
+
+<div class="card">
+      <img src="https://www.pieseauto.ro/poze/grup-fata-cod-0av409053t-skoda-octavia-2-combi/grup-fata-cod-0av409053t-skoda-octavia-2-combi-c699510506831813749-0-0-0-0-0.jpg" alt="Grup fata Skoda">
+      <div class="card-content">
+        <h3>Grup fata Skoda Octavia 2</h3>
+        <p>Cod 0AV409053T, 2.0 TDI</p>
+      </div>
+    </div>
+
+    <!-- AICI ADAUGI TU -->
+    <!--
+    <div class="card">
+      <img src="link_catre_poza_ta.jpg" alt="Denumirea piesei">
+      <div class="card-content">
+        <h3>Denumire piesă</h3>
+        <p>Descriere scurtă a piesei (stare, model, detalii utile)</p>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <footer>
+    &copy; 2025 Auto Parts. Toate drepturile rezervate.
+  </footer>
+
+</body>
+</html>

@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auto Parts - Despre Noi</title>
   <style>
+    /* ------------------------------------- */
+    /* CERINTE FINALE - IMPLEMENTARE */
+    /* ------------------------------------- */
+
+    /* RESET & BAZA */
     * {
       margin: 0;
       padding: 0;
@@ -17,18 +22,65 @@
       color: #333;
     }
 
-    /* HEADER */
-    header {
-      background-color: #111;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    /* 1. STRUCTURA PRINCIPALA - GRID LAYOUT */
+    #top {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+        grid-template-areas:
+            "header"
+            "main-content"
+            "footer";
     }
+
+    header { 
+        background-color: #111;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        grid-area: header;
+    }
+
+    #main-content-wrapper {
+        grid-area: main-content;
+    }
+
+    footer {
+        background-color: #111;
+        color: white;
+        text-align: center;
+        padding: 20px 10px;
+        font-size: 14px;
+        grid-area: footer;
+    }
+
+    /* 2. BUTON MERGI SUS */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        z-index: 100;
+        transition: background-color 0.3s ease;
+    }
+    .back-to-top:hover {
+        background-color: #0056b3;
+    }
+
+    /* ------------------------------------- */
+    /* CSS ORIGINAL MODIFICAT */
+    /* ------------------------------------- */
 
     header h1 {
       font-size: 28px;
@@ -111,9 +163,11 @@
       color: #007BFF;
     }
 
+    /* 3. CARDURI - FLEXBOX */
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: flex; /* <-- MODIFICAT: Acum folosește Flexbox */
+      flex-wrap: wrap; /* Permite aranjarea pe rânduri multiple */
+      justify-content: center; /* Centrează cardurile */
       gap: 30px;
     }
 
@@ -123,6 +177,9 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       padding: 25px;
       transition: transform 0.3s ease;
+      /* Flex item configuration */
+      flex: 1 1 250px; /* Baza de 250px, poate creste sau se micsora */
+      max-width: 350px; /* Limită maximă pe ecrane mari */
     }
 
     .card:hover {
@@ -130,7 +187,7 @@
     }
 
     .card img {
-      width: 100%;
+      max-width: 100%; /* Cerinta: Imaginile sa se redimensioneze proportional */
       height: 180px;
       object-fit: cover;
       border-radius: 10px;
@@ -148,15 +205,6 @@
       color: #555;
     }
 
-    /* FOOTER */
-    footer {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 20px 10px;
-      font-size: 14px;
-    }
-
     footer a {
       color: #007BFF;
       text-decoration: none;
@@ -165,9 +213,51 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* 4. DESIGN RESPONSIV - MEDIA QUERY */
+    @media (max-width: 900px) {
+        /* Header/Nav: Meniul se aranjeaza pe verticala */
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 24px; /* Font adaptat */
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+        nav a {
+            margin: 5px 0;
+            padding: 8px 0;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Carduri: Stivuire verticala (full width) */
+        .card {
+            flex: 1 1 100%; /* Fortam latimea completa pe mobil */
+            max-width: none;
+        }
+
+        /* Hero */
+        .page-hero h2 {
+            font-size: 40px;
+        }
+        
+        /* Ajustari generale */
+        .descriere, .servicii {
+            padding: 40px 5%;
+        }
+    }
   </style>
 </head>
-<body>
+<body id="top">
 
   <header>
     <h1>Auto Parts</h1>
@@ -180,46 +270,50 @@
     </nav>
   </header>
 
-  <section class="page-hero">
-    <h2>Despre Noi</h2>
-  </section>
+  <main id="main-content-wrapper">
+    <section class="page-hero">
+        <h2>Despre Noi</h2>
+    </section>
 
-  <section class="descriere">
-    <h3>Cine suntem noi</h3>
-    <p>
-      Auto Parts este un magazin de piese auto provenite din dezmembrări multimarcă, cu o experiență de peste 10 ani în domeniu.
-      Ne dedicăm pasionaților auto și service-urilor care caută piese originale, verificate și în stare excelentă, la prețuri accesibile.
-      Oferim servicii complete de <strong>dezmembrări, montare/demontare</strong> și <strong>transport</strong> către clienți din toată țara.
-      <br><br>
-      Credem în transparență, calitate și profesionalism. Fiecare piesă este atent verificată înainte de livrare, iar echipa noastră este
-      mereu pregătită să ofere suport și consultanță tehnică pentru alegerea corectă a piesei.
-    </p>
-  </section>
+    <section class="descriere">
+        <h3>Cine suntem noi</h3>
+        <p>
+        Auto Parts este un magazin de piese auto provenite din dezmembrări multimarcă, cu o experiență de peste 10 ani în domeniu.
+        Ne dedicăm pasionaților auto și service-urilor care caută piese originale, verificate și în stare excelentă, la prețuri accesibile.
+        Oferim servicii complete de <strong>dezmembrări, montare/demontare</strong> și <strong>transport</strong> către clienți din toată țara.
+        <br><br>
+        Credem în transparență, calitate și profesionalism. Fiecare piesă este atent verificată înainte de livrare, iar echipa noastră este
+        mereu pregătită să ofere suport și consultanță tehnică pentru alegerea corectă a piesei.
+        </p>
+    </section>
 
-  <section class="servicii">
-    <h3>Serviciile Noastre</h3>
-    <div class="grid">
-      <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2016/12/27/23/27/auto-1934388_1280.jpg" alt="Dezmembrări auto">
-        <h4>Dezmembrări Multimarcă</h4>
-        <p>Oferim piese originale din dezmembrări pentru o gamă largă de mărci auto: BMW, Audi, VW, Ford, Renault, Opel și multe altele.</p>
-      </div>
-      <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2016/03/27/19/41/auto-1281643_1280.jpg" alt="Montare/Demontare">
-        <h4>Montare și Demontare</h4>
-        <p>Serviciu complet de montare și demontare a pieselor, efectuat de personal calificat și cu experiență în domeniu.</p>
-      </div>
-      <div class="card">
-        <img src="https://cdn.pixabay.com/photo/2017/08/06/11/53/truck-2598699_1280.jpg" alt="Transport">
-        <h4>Transport Rapid</h4>
-        <p>Asigurăm transportul pieselor oriunde în țară, rapid și în siguranță, prin curierat sau livrare proprie.</p>
-      </div>
-    </div>
-  </section>
+    <section class="servicii">
+        <h3>Serviciile Noastre</h3>
+        <div class="grid">
+        <div class="card">
+            <img src="https://cdn-ikppmed.nitrocdn.com/AdICwYJjidPXkRkvbUOqznibXQGHXNNX/assets/images/optimized/rev-16bf311/www.lexiconbranding.com/wp-content/uploads/2023/07/Car-Logos_Blog-image.png" alt="Dezmembrări auto">
+            <h4>Dezmembrări Multimarcă</h4>
+            <p>Oferim piese originale din dezmembrări pentru o gamă largă de mărci auto: BMW, Audi, VW, Ford, Renault, Opel și multe altele.</p>
+        </div>
+        <div class="card">
+            <img src="https://auto.edu/hubfs/shutterstock_2470156997.jpg" alt="Montare/Demontare">
+            <h4>Montare și Demontare</h4>
+            <p>Serviciu complet de montare și demontare a pieselor, efectuat de personal calificat și cu experiență în domeniu.</p>
+        </div>
+        <div class="card">
+            <img src="https://swiftdeliveryandlogistics.com/wp-content/uploads/63a99832ddf2277ef743f5e4_Last-Mile-Delivery-1030x687.webp" alt="Transport">
+            <h4>Transport Rapid</h4>
+            <p>Asigurăm transportul pieselor oriunde în țară, rapid și în siguranță, prin curierat sau livrare proprie.</p>
+        </div>
+        </div>
+    </section>
+  </main>
 
   <footer>
     &copy; 2025 Auto Parts. Toate drepturile rezervate. | <a href="#">Politica de confidențialitate</a>
   </footer>
+  
+  <a href="#top" class="back-to-top">↑ Top</a>
 
 </body>
 </html>

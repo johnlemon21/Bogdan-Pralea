@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auto Parts - Contact</title>
   <style>
+    /* ------------------------------------- */
+    /* CERINTE FINALE - IMPLEMENTARE */
+    /* ------------------------------------- */
+    
+    /* RESET & BAZA */
     * {
       margin: 0;
       padding: 0;
@@ -17,18 +22,65 @@
       color: #333;
     }
 
-    /* HEADER */
-    header {
-      background-color: #111;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    /* 1. STRUCTURA PRINCIPALA - GRID LAYOUT */
+    #top {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+        grid-template-areas:
+            "header"
+            "main-content"
+            "footer";
     }
+
+    header { 
+        background-color: #111;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        grid-area: header;
+    }
+
+    #main-content-wrapper {
+        grid-area: main-content;
+    }
+
+    footer {
+        background-color: #111;
+        color: white;
+        text-align: center;
+        padding: 20px 10px;
+        font-size: 14px;
+        grid-area: footer;
+    }
+
+    /* 2. BUTON MERGI SUS */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        z-index: 100;
+        transition: background-color 0.3s ease;
+    }
+    .back-to-top:hover {
+        background-color: #0056b3;
+    }
+    
+    /* ------------------------------------- */
+    /* CSS ORIGINAL MODIFICAT */
+    /* ------------------------------------- */
 
     header h1 {
       font-size: 28px;
@@ -77,7 +129,7 @@
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* CONTACT SECTION */
+    /* CONTACT SECTION (Foloseste deja Flexbox) */
     .contact-container {
       padding: 60px 10%;
       display: flex;
@@ -169,15 +221,6 @@
       background-color: #0056b3;
     }
 
-    /* FOOTER */
-    footer {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 20px 10px;
-      font-size: 14px;
-    }
-
     footer a {
       color: #007BFF;
       text-decoration: none;
@@ -186,50 +229,94 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* 4. DESIGN RESPONSIV - MEDIA QUERY */
+    @media (max-width: 900px) {
+        /* Header/Nav: Meniul se aranjeaza pe verticala */
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 24px; /* Font adaptat */
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+        nav a {
+            margin: 5px 0;
+            padding: 8px 0;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Contact Container: Fortam stivuirea verticala */
+        .contact-info, .contact-form {
+            max-width: 100%;
+            flex: 1 1 100%;
+        }
+        .contact-container {
+            padding: 40px 5%;
+        }
+        
+        /* Hero */
+        .page-hero h2 {
+            font-size: 40px;
+        }
+    }
   </style>
 </head>
-<body>
+<body id="top">
 
   <header>
     <h1>Auto Parts</h1>
     <nav>
       <a href="index.html">Acasă</a>
       <a href="piese.html">Piese</a>
-<a href="despre.html">Despre noi</a>
+      <a href="despre.html">Despre noi</a>
       <a href="contact.html">Contact</a>
       <a href="login.html">Login</a>
     </nav>
   </header>
 
-  <section class="page-hero">
-    <h2>Contactează-ne</h2>
-  </section>
+  <main id="main-content-wrapper">
+    <section class="page-hero">
+        <h2>Contactează-ne</h2>
+    </section>
 
-  <section class="contact-container">
-    <div class="contact-info">
-      <h3>Date de Contact</h3>
-      <p><strong>Email:</strong> <a href="mailto:pralea_bod9@yahoo.com">pralea_bod9@yahoo.com</a></p>
-      <p><strong>Telefon:</strong> <a href="tel:+40740439911">+40 740 439 911</a></p>
-      <p>Ne poți contacta pentru detalii despre piese, comenzi sau colaborări. Răspundem rapid!</p>
-    </div>
+    <section class="contact-container">
+        <div class="contact-info">
+        <h3>Date de Contact</h3>
+        <p><strong>Email:</strong> <a href="mailto:pralea_bod9@yahoo.com">pralea_bod9@yahoo.com</a></p>
+        <p><strong>Telefon:</strong> <a href="tel:+40740439911">+40 740 439 911</a></p>
+        <p>Ne poți contacta pentru detalii despre piese, comenzi sau colaborări. Răspundem rapid!</p>
+        </div>
 
-    <div class="contact-form">
-      <h3>Trimite-ne un mesaj</h3>
-      <form action="mailto:pralea_bod9@yahoo.com" method="post" enctype="text/plain">
-        <label for="subiect">Subiect:</label>
-        <input type="text" id="subiect" name="subiect" placeholder="Introdu subiectul" required>
+        <div class="contact-form">
+        <h3>Trimite-ne un mesaj</h3>
+        <form action="mailto:pralea_bod9@yahoo.com" method="post" enctype="text/plain">
+            <label for="subiect">Subiect:</label>
+            <input type="text" id="subiect" name="subiect" placeholder="Introdu subiectul" required>
 
-        <label for="mesaj">Descriere:</label>
-        <textarea id="mesaj" name="mesaj" placeholder="Scrie mesajul tău aici..." required></textarea>
+            <label for="mesaj">Descriere:</label>
+            <textarea id="mesaj" name="mesaj" placeholder="Scrie mesajul tău aici..." required></textarea>
 
-        <button type="submit">Trimite mesaj</button>
-      </form>
-    </div>
-  </section>
+            <button type="submit">Trimite mesaj</button>
+        </form>
+        </div>
+    </section>
+  </main>
 
   <footer>
     &copy; 2025 Auto Parts. Toate drepturile rezervate. | <a href="#">Politica de confidențialitate</a>
   </footer>
+
+  <a href="#top" class="back-to-top">↑ Top</a>
 
 </body>
 </html>

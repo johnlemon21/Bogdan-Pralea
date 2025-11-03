@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auto Parts - Toate piesele</title>
   <style>
+    /* ------------------------------------- */
+    /* CERINTE FINALE - IMPLEMENTARE */
+    /* ------------------------------------- */
+
+    /* RESET & BAZA */
     * {margin: 0; padding: 0; box-sizing: border-box;}
     body {
       font-family: Arial, sans-serif;
@@ -12,14 +17,62 @@
       color: #333;
     }
 
-    header {
-      background-color: #111;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
+    /* 1. STRUCTURA PRINCIPALA - GRID LAYOUT */
+    #top {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+        grid-template-areas:
+            "header"
+            "main-content"
+            "footer";
     }
+
+    header { 
+        background-color: #111;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        grid-area: header;
+    }
+    
+    #main-content-wrapper {
+        grid-area: main-content;
+    }
+
+    footer {
+        background-color: #111;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        grid-area: footer;
+    }
+
+    /* 2. BUTON MERGI SUS */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        z-index: 100;
+        transition: background-color 0.3s ease;
+    }
+    .back-to-top:hover {
+        background-color: #0056b3;
+    }
+
+    /* ------------------------------------- */
+    /* CSS ORIGINAL MODIFICAT & FILTRARE */
+    /* ------------------------------------- */
 
     nav a {
       color: white;
@@ -44,6 +97,7 @@
       margin-bottom: 40px;
     }
 
+    /* Stilul de bază al butonului de categorie */
     .categorii a {
       display: inline-block;
       margin: 10px 15px;
@@ -52,16 +106,25 @@
       background-color: #007BFF;
       color: white;
       text-decoration: none;
+      cursor: pointer; /* Adaugat pentru a indica ca este un element interactiv */
       transition: background 0.3s;
     }
 
     .categorii a:hover {
       background-color: #0056b3;
     }
+    
+    /* STILUL PENTRU BUTONUL ACTIV */
+    .categorii a.active {
+        background-color: #28a745; /* O culoare diferita pentru a evidentia filtrul activ */
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    }
 
+    /* 3. CARDURI - FLEXBOX */
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: flex; /* <-- Foloseste Flexbox */
+      flex-wrap: wrap; 
+      justify-content: center; 
       gap: 25px;
       padding: 0 10% 60px;
     }
@@ -71,15 +134,23 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: transform 0.3s;
+      transition: transform 0.3s, opacity 0.3s; /* Adaugat opacity pentru tranzitia de filtrare */
+      flex: 1 1 250px; 
+      max-width: 350px; 
     }
 
     .card:hover {
       transform: translateY(-5px);
     }
+    
+    /* CLASA PENTRU ASCUNDEREA CARDURILOR (folosita de JS) */
+    .card.hide {
+        display: none;
+        opacity: 0;
+    }
 
     .card img {
-      width: 100%;
+      max-width: 100%; 
       height: 180px;
       object-fit: cover;
     }
@@ -99,16 +170,43 @@
       color: #555;
     }
 
-    footer {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
+    /* 4. DESIGN RESPONSIV - MEDIA QUERY */
+    @media (max-width: 900px) {
+        /* ... Stilurile responsive existente ... */
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+        nav a {
+            margin: 5px 0;
+            padding: 8px 0;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .card {
+            flex: 1 1 100%; 
+            max-width: none;
+        }
+        h1 {
+            margin: 30px 0 15px;
+            font-size: 28px;
+        }
+        .categorii a {
+            margin: 5px 10px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
     }
   </style>
 </head>
-<body>
+<body id="top">
 
   <header>
     <h1>Auto Parts</h1>
@@ -120,113 +218,289 @@
       <a href="login.html">Login</a>
     </nav>
   </header>
+  
+  <main id="main-content-wrapper">
 
-  <h1>Toate piesele disponibile</h1>
+    <h1>Toate piesele disponibile</h1>
 
-  <div class="categorii">
-    <a href="motor.html">Motor</a>
-    <a href="frane.html">Frâne</a>
-    <a href="suspensii.html">Suspensii</a>
-    <a href="caroserie.html">Caroserie</a>
-  </div>
-
-  <div class="grid">
-    <!-- EXEMPLE DE CARDURI DE COMPLETAT -->
-    <div class="card">
-      <img src="https://tonmaxenginesscc.co.za/uploads/8/0/7/8/80781886/bmw-m47-3_orig.jpg" alt="Motor BMW">
-      <div class="card-content">
-        <h3>Motor BMW E46 2.0D M47D20TU</h3>
-        <p>Motor complet, verificat, 254729. Garanție 30 zile.</p>
-      </div>
+    <div class="categorii">
+        <a href="#" class="filter-btn active" data-filter="all">Toate piesele</a>
+        <a href="#" class="filter-btn" data-filter="motor">Motor</a>
+        <a href="#" class="filter-btn" data-filter="frane">Frâne</a>
+        <a href="#" class="filter-btn" data-filter="suspensii">Suspensii</a>
+        <a href="#" class="filter-btn" data-filter="caroserie">Caroserie</a>
+        <a href="#" class="filter-btn" data-filter="interior">Interior</a>
     </div>
 
-    <div class="card">
-      <img src="https://vagparts.ie/wp-content/uploads/2019/07/20190711_140742.jpg" alt="Disc frână Audi">
-      <div class="card-content">
-        <h3>Discuri frână Audi A4</h3>
-        <p>Disc frână original Audi, în stare foarte bună, fără uzură excesivă.</p>
-      </div>
-    </div>
+    <div class="grid">
+        
+        <div class="card motor">
+          <img src="https://tonmaxenginesscc.co.za/uploads/8/0/7/8/80781886/bmw-m47-3_orig.jpg" alt="Motor BMW">
+          <div class="card-content">
+            <h3>Motor BMW E46 2.0D M47D20TU</h3>
+            <p>Motor complet, verificat, 254729. Garanție 30 zile.</p>
+          </div>
+        </div>
+        <div class="card motor">
+            <img src="https://www.pieseauto.ro/poze/turbina-garrett-audi-a4-a6-vw-passat-1-9-tdi-cod/turbina-garrett-audi-a4-a6-vw-passat-1-9-tdi-cod-21d0dfd7dabc07a761-0-0-0-0-0.jpg" alt="Turbosuflanta">
+            <div class="card-content">
+                <h3>Turbosuflantă Garrett Audi/VW 1.9 TDI</h3>
+                <p>Turbină recondiționată cu garanție 12 luni. Cod: GT1749V.</p>
+            </div>
+        </div>
+        <div class="card motor">
+            <img src="https://www.pieseauto.ro/poze/injectoare-bosch-bmw-e90-e91-e92-e90-e60-e61-2-0/injectoare-bosch-bmw-e90-e91-e92-e90-e60-e61-2-0-8b7b6105c2cc20cc8e6-0-0-0-0-0.jpg" alt="Injectoare Bosch">
+            <div class="card-content">
+                <h3>Set 4 Injectoare Diesel Bosch</h3>
+                <p>Compatibile cu Renault/Dacia 1.5 DCI (K9K). Stare perfectă de funcționare.</p>
+            </div>
+        </div>
+        <div class="card motor">
+            <img src="https://www.pieseauto.ro/poze/grup-fata-cod-0av409053t-skoda-octavia-2-combi/grup-fata-cod-0av409053t-skoda-octavia-2-combi-c699510506831813749-0-0-0-0-0.jpg" alt="Grup fata Skoda">
+            <div class="card-content">
+                <h3>Grup fata Skoda Octavia 2</h3>
+                <p>Cod 0AV409053T, 2.0 TDI.</p>
+            </div>
+        </div>
+        <div class="card motor">
+            <img src="https://www.pieseauto.ro/poze/cutie-de-viteza-automata-cod-6hp19-bmw-3/cutie-de-viteza-automata-cod-6hp19-bmw-3-49e38fcdfe0c8879e6-0-0-0-0-0.jpg" alt="Cutie Viteze Automata">
+            <div class="card-content">
+                <h3>Cutie Viteze Automată BMW 6HP19</h3>
+                <p>Revizuită, compatibilă cu seria 3/5/7. Garanție 6 luni.</p>
+            </div>
+        </div>
+        <div class="card motor">
+            <img src="https://c.cdnmp.net/129540772/p/m/1/volanta-masa-dubla-luk-cutie-dsg-6-1-vw-passat-cc-2-0-tdi-136cp-140cp~7830951.jpg" alt="Volanta masa dubla">
+            <div class="card-content">
+                <h3>Volantă masă dublă LUK VW Passat B8</h3>
+                <p>Stare ca nouă, 10.000 km rulați, 2.0 TDI.</p>
+            </div>
+        </div>
 
-<div class="card">
-      <img src="https://frankfurt.apollo.olxcdn.com/v1/files/hkq5r0050abk2-RO/image;s=1000x700" alt="Suspensie AirMatic">
-      <div class="card-content">
-        <h3>Suspensie AirMatic Mercedes</h3>
-        <p>Kit complet suspensie airmatic, provenienta: Mercedes CLS 2012</p>
-      </div>
-    </div>
+        <div class="card frane">
+          <img src="https://vagparts.ie/wp-content/uploads/2019/07/20190711_140742.jpg" alt="Disc frână Audi">
+          <div class="card-content">
+            <h3>Discuri frână Audi A4</h3>
+            <p>Disc frână original Audi, în stare foarte bună, fără uzură excesivă.</p>
+          </div>
+        </div>
+        <div class="card frane">
+            <img src="https://www.pieseauto.ro/poze/set-placute-frana-fata-din-ceramica-ford-c-max-c/set-placute-frana-fata-din-ceramica-ford-c-max-c-b1ab6f6f60e90c87d2-0-0-0-0-0.jpg" alt="Placute frana Brembo">
+            <div class="card-content">
+                <h3>Set plăcuțe frână față Brembo</h3>
+                <p>Pentru Ford Focus 2 / C-Max. Produs nou, sigilat.</p>
+            </div>
+        </div>
+        <div class="card frane">
+            <img src="https://www.pieseauto.ro/poze/etrier-dreapta-fata-audi-a6-c7-an-2015-cod-piesa/etrier-dreapta-fata-audi-a6-c7-an-2015-cod-piesa-715d110e77a8386b959-0-0-0-0-0.jpg" alt="Etrier Brembo">
+            <div class="card-content">
+                <h3>Etrier dreapta față Audi A6 C7</h3>
+                <p>Etrier original Brembo, 3.0 TDI. Dezmembrat.</p>
+            </div>
+        </div>
+        <div class="card frane">
+            <img src="https://media.autodoc.de/360_photos/13651567/h-preview.jpg" alt="Senzor ABS">
+            <div class="card-content">
+                <h3>Senzor ABS Bosch spate stânga</h3>
+                <p>Compatibil cu BMW Seria 5 (F10, F11). Nou.</p>
+            </div>
+        </div>
+        <div class="card frane">
+            <img src="https://images.ovoko.com/tl/fill/1024x768/aza/0/0/0/0/0/6/3/7/0/566350dfc3eb53fe634787453a9ac7da-bmw_x3_g01_brake_discs_and_calipers_set.jpeg" alt="Kit frane M Performance">
+            <div class="card-content">
+                <h3>Kit Frâne M Performance</h3>
+                <p>Kit complet 4 pistoane față, 2 pistoane spate. Pentru Seria 3 G20.</p>
+            </div>
+        </div>
+        <div class="card frane">
+            <img src="https://www.pieseauto.ro/poze/pompa-centrala-de-frana-audi-audi-a4-b5-facelift/pompa-centrala-de-frana-audi-audi-a4-b5-facelift-785ef10ac28570f3516-0-0-0-0-0.jpg" alt="Pompa frana">
+            <div class="card-content">
+                <h3>Pompă frână centrală Audi A4 B5</h3>
+                <p>Originală ATE, stare funcțională. Model 1.8T.</p>
+            </div>
+        </div>
 
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/interior-m3-recaro-sport-scaune-piele-incalzite/interior-m3-recaro-sport-scaune-piele-incalzite-fb38df0c086b0b7f2f-0-0-0-0-0.jpg" alt="Interior M3 recaro sport">
-      <div class="card-content">
-        <h3>Interior M3 E36 recaro sport</h3>
-        <p>Interior ///M3 recaro sport scaune piele incalzite bmw e36 berlina</p>
-      </div>
-    </div>
+        <div class="card suspensii">
+            <img src="https://frankfurt.apollo.olxcdn.com/v1/files/hkq5r0050abk2-RO/image;s=1000x700" alt="Suspensie AirMatic">
+            <div class="card-content">
+                <h3>Suspensie AirMatic Mercedes</h3>
+                <p>Kit complet suspensie airmatic, provenienta: Mercedes CLS 2012</p>
+            </div>
+        </div>
+        <div class="card suspensii">
+            <img src="https://www.pieseauto.ro/poze/planetara-fata-volvo-xc90-2004-2-4-diesel-cod/planetara-fata-volvo-xc90-2004-2-4-diesel-cod-c07d6f40063f09af6e-0-0-0-0-0.jpg" alt="Planetara volvo">
+            <div class="card-content">
+                <h3>Planetara fata Volvo XC90</h3>
+                <p>Planetara fata Volvo XC90 2004 2.4 Diesel Cod Motor D5244T 163CP/120KW</p>
+            </div>
+        </div>
+        <div class="card suspensii">
+            <img src="https://frankfurt.apollo.olxcdn.com/v1/files/9s29y02g5z2x2-RO/image;s=1000x700" alt="Suspensie Sport KW V3">
+            <div class="card-content">
+                <h3>Kit suspensie sport reglabilă KW V3</h3>
+                <p>Pentru VW Golf 5 / Audi A3. Stare excelentă, revizie recentă.</p>
+            </div>
+        </div>
+        <div class="card suspensii">
+            <img src="https://www.pieseauto.ro/poze/amortizor-telescop-fata-stanga-3c0413031ac/amortizor-telescop-fata-stanga-3c0413031ac-2a5b611164ca50b3a30-0-0-0-0-0.jpg" alt="Amortizor B6">
+            <div class="card-content">
+                <h3>Amortizor față dreapta VW Passat B6</h3>
+                <p>Original Sachs, dezmembrat, fără scurgeri. Garanție 30 zile.</p>
+            </div>
+        </div>
+        <div class="card suspensii">
+            <img src="https://www.pieseauto.ro/poze/kit-brate-suspensie-fata-itn-pt-audi-a4-b6-b7/kit-brate-suspensie-fata-itn-pt-audi-a4-b6-b7-5b30ef0661b181c790-0-0-0-0-0.jpg" alt="Braturi suspensie Audi">
+            <div class="card-content">
+                <h3>Set 8 Brațe Suspensie Față Audi A4 B6</h3>
+                <p>Set complet, import Germania. Stare bună de uzură.</p>
+            </div>
+        </div>
+        <div class="card suspensii">
+            <img src="https://www.pieseauto.ro/poze/arc-spate-stanga-dreapta-ford-mondeo-mk4-2-0-tdci/arc-spate-stanga-dreapta-ford-mondeo-mk4-2-0-tdci-5ef45fdb9fbd011eb3-0-0-0-0-0.jpg" alt="Arc elicoidal">
+            <div class="card-content">
+                <h3>Arc Elicoidal Spate Ford Mondeo MK4</h3>
+                <p>Arc întărit, ideal pentru mașinile cu GPL. Produs nou.</p>
+            </div>
+        </div>
 
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/far-dreapta-full-led-bmw-m3-f80-m4-f82/far-dreapta-full-led-bmw-m3-f80-m4-f82-9078afea97790b9ad4-0-0-0-0-0.jpg" alt="Interior M3 recaro sport">
-      <div class="card-content">
-        <h3>Far dreapta full led, Bmw M3 F80, M4 F82</h3>
-        <p>Functie cornering, faza lunga automata, stare foarte buna</p>
-      </div>
-    </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/far-dreapta-full-led-bmw-m3-f80-m4-f82/far-dreapta-full-led-bmw-m3-f80-m4-f82-9078afea97790b9ad3-0-0-0-0-0.jpg" alt="Far LED M4">
+            <div class="card-content">
+                <h3>Far dreapta full led, Bmw M3 F80, M4 F82</h3>
+                <p>Functie cornering, faza lunga automata, stare foarte buna.</p>
+            </div>
+        </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/haion-vw-passat-b6-break/haion-vw-passat-b6-break-7024854922a10aef27-0-0-0-0-0.jpg" alt="Hayon VW Passat B6">
+            <div class="card-content">
+                <h3>Hayon VW Passat B6 Break</h3>
+                <p>Se vinde cu tot cu stopuri interioare și încuietoare.</p>
+            </div>
+        </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/usa-stanga-fata-bmw-seria-5-f10-f11-usa-stanga/usa-stanga-fata-bmw-seria-5-f10-f11-usa-stanga-969c310b5255f8ae275-0-0-0-0-0.jpg" alt="Ușă stânga BMW F10">
+            <div class="card-content">
+                <h3>Ușă față stânga BMW Seria 5 F10</h3>
+                <p>Culoare negru metalizat. Fără lovituri. Se vinde fără panoul interior.</p>
+            </div>
+        </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/bara-fata-completa-golf-7-2013-1-1/bara-fata-completa-golf-7-2013-1-1-3aea8104a6ae987da72-0-0-0-0-0.jpg" alt="Bara față Golf 7 GTI">
+            <div class="card-content">
+                <h3>Bară față completă VW Golf 7 GTI</h3>
+                <p>Cu grile, siglă și proiectoare. Originală, stare bună.</p>
+            </div>
+        </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/oglinda-electrica-dreapta-e1020931-audi-a4-b8-8k/oglinda-electrica-dreapta-e1020931-audi-a4-b8-8k-1d3af10d6f8018288e4-0-0-0-0-0.jpg" alt="Oglinda electrica">
+            <div class="card-content">
+                <h3>Oglindă electrică dreapta Audi A4 B8</h3>
+                <p>Încălzită și rabatabilă electric. Culoare gri închis.</p>
+            </div>
+        </div>
+        <div class="card caroserie">
+            <img src="https://www.pieseauto.ro/poze/capota-motor-mercedes-e-class-w212-an-2009-2010/capota-motor-mercedes-e-class-w212-an-2009-2010-b5a5410bb937e02baa8-0-0-0-0-0.jpg" alt="Capota motor">
+            <div class="card-content">
+                <h3>Capotă motor Mercedes E-Class W212</h3>
+                <p>Model facelift, 2013-2016. Culoare albă. Mică zgârietură superficială.</p>
+            </div>
+        </div>
 
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/haion-vw-passat-b6-break/haion-vw-passat-b6-break-7024854922a10aef27-0-0-0-0-0.jpg" alt="Hayon VW Passat B6">
-      <div class="card-content">
-        <h3>Hayon VW Passat B6</h3>
-        <p>Se vinde cu tot cu stopuri interioare si incuietoare, usor ruginit.</p>
-      </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/interior-m3-recaro-sport-scaune-piele-incalzite/interior-m3-recaro-sport-scaune-piele-incalzite-fb38df0c086b0b7f2f-0-0-0-0-0.jpg" alt="Interior M3 recaro sport">
+            <div class="card-content">
+                <h3>Interior M3 E36 recaro sport</h3>
+                <p>Interior ///M3 recaro sport scaune piele incalzite bmw e36 berlina.</p>
+            </div>
+        </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/kit-plansa-bord-seat-leon-3-2012-2016/kit-plansa-bord-seat-leon-3-2012-2016-4d42e111118948ea7b4-0-0-0-0-0.jpg" alt="Kit plansa bord Seat Leon 3 2012-2016">
+            <div class="card-content">
+                <h3>Kit planșă bord Seat Leon 3</h3>
+                <p>Conversie volan dreapta la stânga. Include planșa, airbag, centuri.</p>
+            </div>
+        </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/volan-m-cu-padele-bmw-f10/volan-m-cu-padele-bmw-f10-bdde7539eee101b1f1-0-0-0-0-0.jpg" alt="Volan M">
+            <div class="card-content">
+                <h3>Volan M cu padele</h3>
+                <p>Piele, multifuncțional, cu airbag inclus. Proveniență: BMW F10.</p>
+            </div>
+        </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/display-naviga-ie-mmi-audi-a6-c6-4f-facelift/display-naviga-ie-mmi-audi-a6-c6-4f-facelift-2ba36fb6e81e0e3e4f-0-0-0-0-0.jpg" alt="Navigație MMI">
+            <div class="card-content">
+                <h3>Sistem Navigație MMI 2G High Audi A6 C6</h3>
+                <p>Include display, unități și cabluri. Necesită codare după montaj.</p>
+            </div>
+        </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/climatronic-volkswagen-golf-v-1k1-2003-2009/climatronic-volkswagen-golf-v-1k1-2003-2009-842d610b0f56084271b-0-0-0-0-0.jpg" alt="Climatronic Golf 5">
+            <div class="card-content">
+                <h3>Panou Climatronic Dublu VW Golf 5 / Jetta</h3>
+                <p>Climatronic digital, cu încălzire în scaune. Stare vizuală 9/10.</p>
+            </div>
+        </div>
+        <div class="card interior">
+            <img src="https://www.pieseauto.ro/poze/cotiera-mercedes-benz-c-class-w204-s204-2007-2012/cotiera-mercedes-benz-c-class-w204-s204-2007-2012-555c8109ea817057bbf-0-0-0-0-0.jpg" alt="Cotiera Mercedes">
+            <div class="card-content">
+                <h3>Cotieră centrală piele Mercedes C-Class W204</h3>
+                <p>Piele neagră, fără rupturi sau uzură vizibilă. Originală OEM.</p>
+            </div>
+        </div>
+        
     </div>
-
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/kit-plansa-bord-seat-leon-3-2012-2016/kit-plansa-bord-seat-leon-3-2012-2016-4d42e111118948ea7b4-0-0-0-0-0.jpg" alt="Kit plansa bord Seat Leon 3 2012-2016">
-      <div class="card-content">
-        <h3>Kit plansa bord conversie Seat Leon 3 2012-2016</h3>
-        <p>Nedeteriorat, perfect pentru masinile aduse din UK!</p>
-      </div>
-    </div>
-
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/volan-m-cu-padele-bmw-f10/volan-m-cu-padele-bmw-f10-bdde7539eee101b1f1-0-0-0-0-0.jpg" alt="Volan M">
-      <div class="card-content">
-        <h3>Volan M cu padele</h3>
-        <p>Provenienta: BMW F10</p>
-      </div>
-    </div>
-
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/planetara-fata-volvo-xc90-2004-2-4-diesel-cod/planetara-fata-volvo-xc90-2004-2-4-diesel-cod-c07d6f40063f09af6e-0-0-0-0-0.jpg" alt="Planetara volvo">
-      <div class="card-content">
-        <h3>Planetara fata Volvo XC90</h3>
-        <p>Planetara fata Volvo XC90 2004 2.4 Diesel Cod Motor D5244T 163CP/120KW</p>
-      </div>
-    </div>
-
-<div class="card">
-      <img src="https://www.pieseauto.ro/poze/grup-fata-cod-0av409053t-skoda-octavia-2-combi/grup-fata-cod-0av409053t-skoda-octavia-2-combi-c699510506831813749-0-0-0-0-0.jpg" alt="Grup fata Skoda">
-      <div class="card-content">
-        <h3>Grup fata Skoda Octavia 2</h3>
-        <p>Cod 0AV409053T, 2.0 TDI</p>
-      </div>
-    </div>
-
-    <!-- AICI ADAUGI TU -->
-    <!--
-    <div class="card">
-      <img src="link_catre_poza_ta.jpg" alt="Denumirea piesei">
-      <div class="card-content">
-        <h3>Denumire piesă</h3>
-        <p>Descriere scurtă a piesei (stare, model, detalii utile)</p>
-      </div>
-    </div>
-    -->
-  </div>
+  </main>
 
   <footer>
     &copy; 2025 Auto Parts. Toate drepturile rezervate.
   </footer>
+  
+  <a href="#top" class="back-to-top">↑ Top</a>
+
+    <script>
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.grid .card');
+        const gridContainer = document.querySelector('.grid');
+
+        // Funcția principală de filtrare
+        function filterProducts(category) {
+            
+            // 1. Ascunde/Afișează Cardurile
+            productCards.forEach(card => {
+                const cardClasses = Array.from(card.classList);
+                
+                if (category === 'all' || cardClasses.includes(category)) {
+                    // Dacă se potrivește cu categoria sau e 'all', arată cardul
+                    card.classList.remove('hide');
+                    card.style.display = 'block'; // Afișează din nou elementul
+                } else {
+                    // Ascunde cardul
+                    card.classList.add('hide');
+                    card.style.display = 'none'; // Ascundere rapidă pentru performanță
+                }
+            });
+        }
+
+        // Adaugă ascultători de evenimente (event listeners) pe butoane
+        filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); // Oprește reîncărcarea paginii
+                
+                // 2. Schimbă butonul activ (vizual)
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // 3. Extrage categoria de filtrat și aplică funcția
+                const category = button.getAttribute('data-filter');
+                filterProducts(category);
+            });
+        });
+
+        // Aplică filtrul inițial (pentru a se asigura că toate sunt afișate la încărcare)
+        filterProducts('all');
+
+    </script>
 
 </body>
 </html>
