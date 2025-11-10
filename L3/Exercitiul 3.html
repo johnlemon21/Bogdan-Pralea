@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercițiul 3 - Sortare Descrescătoare</title>
+</head>
+<body style="background-color:pink">
+
+    <h1>Exercițiul 3: Rezultatele sunt în Consola Browser-ului</h1>
+
+   <script>
+        let a = 95;
+        let b = 108;
+        let c = 42;
+        let p1, p2, p3;
+
+        console.log("--- Exercițiul 3: Sortare Descrescătoare");
+        console.log(`Numerele inițiale: ${a}, ${b}, ${c}`);
+
+        if (a >= b && a >= c) {
+            p1 = a;
+            if (b >= c) {
+                p2 = b;
+                p3 = c;
+            } else {
+                p2 = c;
+                p3 = b;
+            }
+        } else if (b >= a && b >= c) {
+            p1 = b;
+            if (a >= c) {
+                p2 = a;
+                p3 = c;
+            } else {
+                p2 = c;
+                p3 = a;
+            }
+        } else {
+            p1 = c;
+            if (a >= b) {
+                p2 = a;
+                p3 = b;
+            } else {
+                p2 = b;
+                p3 = a;
+            }
+        }
+
+        console.log("Numerele sortate în ordine descrescătoare:");
+        console.log(`${p1}, ${p2}, ${p3}`);
+
+    </script>
+
+</body>
+</html>

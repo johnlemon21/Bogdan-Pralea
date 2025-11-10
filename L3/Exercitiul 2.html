@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercițiul 2 - Instrucțiuni Decizionale</title>
+</head>
+<body style="background-color:pink">
+
+    <h1>Exercițiul 2: Instrucțiuni de Control (if, if-else)</h1>
+    <p>Verifică rezultatele în Consola.</p>
+
+    <script>
+        let tranzactie1 = true;
+        let tranzactie2 = false;
+
+        console.log("--- 1. Rezultat IF (tranzactie1 = true) ---");
+
+        if (tranzactie1) {
+            console.log("Tranzactie acceptata!");
+        }
+
+        console.log("\n--- 2. Rezultat IF-ELSE (tranzactie2 = false) ---");
+
+        if (tranzactie2) {
+
+            console.log("Tranzactie acceptată!");
+        } else {
+            console.log("Tranzactie refuzată!");
+        }
+        
+        /* --------
+         EXPLICAȚIE
+        -----------
+        
+        Comportamentul observat este următorul:
+        
+        1. Prima structură (IF simplu, cu condiția tranzactie1 = true):
+           În consolă se afișează: "Tranzactie acceptata!".
+           Explicația: Variabila 'tranzactie1' are valoarea booleană 'true'.
+        
+        2. A doua structură (IF-ELSE, cu condiția tranzactie2 = false):
+           În consolă se afișează: "Tranzactie refuzată!".
+           Explicația: Variabila 'tranzactie2' are valoarea booleană 'false'. În structura 'if-else', JavaScript verifică mai întâi condiția din 'if'. Deoarece 'tranzactie2' este 'false', se trece automat la blocul 'else', iar codul din interiorul acestuia este executat ('Tranzactie refuzata!').
+        */
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercițiul 5 - Tip Triunghi</title>
+</head>
+<body style="background-color:pink">
+
+    <h1>Exercițiul 5: Determinarea Tipului de Triunghi</h1>
+    <p>Rezultatul este afișat în Consola Browser-ului (F12).</p>
+
+    <script>
+        let laturaA = 3;
+        let laturaB = 4;
+        let laturaC = 5; 
+
+        console.log("--- Exercițiul 5: Tip Triunghi ---");
+        console.log(`Laturile date: A=${laturaA}, B=${laturaB}, C=${laturaC}`);
+
+        if (laturaA + laturaB > laturaC && laturaA + laturaC > laturaB && laturaB + laturaC > laturaA) {
+            
+            if (laturaA === laturaB && laturaB === laturaC) {
+                console.log("Cele trei laturi FORMEAZĂ un triunghi.");
+                console.log("Tipul triunghiului este: Triunghi Echilateral.");
+            } 
+            else if (laturaA === laturaB || laturaA === laturaC || laturaB === laturaC) {
+                console.log("Cele trei laturi FORMEAZĂ un triunghi.");
+                console.log("Tipul triunghiului este: Triunghi Isoscel.");
+            } 
+            else {
+                console.log("Cele trei laturi FORMEAZĂ un triunghi.");
+                console.log("Tipul triunghiului este: Triunghi Oarecare.");
+            }
+            
+        } else {
+            console.log("Cele trei laturi NU pot forma un triunghi!");
+        }
+
+    </script>
+
+</body>
+</html>
