@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercițiul 4 - Dreptunghi</title>
+</head>
+<body style="background-color:pink">
+
+    <h1>Exercițiul 4: Verificare Dreptunghi</h1>
+    <p>Rezultatul este afișat în Consola Browser-ului.</p>
+
+   <script>
+        let l1 = 13;
+        let l2 = 27;
+        let l3 = 13;
+        let l4 = 17;
+        
+        const laturi = [l1, l2, l3, l4];
+        
+        let lungime;
+        let latime;
+        let perimetru;
+        let aria;
+        let esteDreptunghi = false;
+        
+        console.log("--- Exercițiul 4: Verificare Dreptunghi ---");
+        console.log("Laturile date:", laturi);
+
+        if (l1 === l2 && l3 === l4) {
+            esteDreptunghi = true;
+            lungime = l1;
+            latime = l3;
+        } 
+        else if (l1 === l3 && l2 === l4) {
+            esteDreptunghi = true;
+            lungime = l1;
+            latime = l2;
+        } 
+        else if (l1 === l4 && l2 === l3) {
+            esteDreptunghi = true;
+            lungime = l1;
+            latime = l2;
+        }
+
+        if (esteDreptunghi) {
+            perimetru = 2 * (lungime + latime);
+            aria = lungime * latime;
+            
+            console.log("Cele 4 numere pot reprezenta laturi ale unui dreptunghi!");
+            console.log(`Perimetrul este: ${perimetru}. Aria este: ${aria}.`);
+        } else {
+            console.log("Cele 4 numere nu pot reprezenta laturi ale unui dreptunghi!");
+        }
+
+    </script>
+
+</body>
+</html>
