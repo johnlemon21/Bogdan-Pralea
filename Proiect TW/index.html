@@ -80,10 +80,6 @@
         background-color: #0056b3;
     }
 
-    /* ------------------------------------- */
-    /* CSS ORIGINAL MODIFICAT */
-    /* ------------------------------------- */
-
     header h1 {
       font-size: 28px;
       letter-spacing: 1px;
@@ -101,7 +97,6 @@
       color: #007BFF;
     }
 
-    /* HERO SECTION */
     .hero {
       height: 80vh;
       background-image: url('https://arcomada.ro/wp-content/uploads/2020/09/piese-auto-straine-1.jpg');
@@ -156,7 +151,6 @@
       background-color: #0056b3;
     }
 
-    /* CATEGORII */
     .categorii {
       padding: 60px 10%;
       background-color: white;
@@ -169,39 +163,35 @@
       color: #111;
     }
 
-    /* 3. CARDURI - FLEXBOX */
     .grid {
-      display: flex; /* <-- MODIFICAT: Acum folosește Flexbox */
-      flex-wrap: wrap; /* Permite aranjarea pe rânduri multiple */
-      justify-content: center; /* Centrează cardurile */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 30px;
     }
     
-    /* STIL PENTRU CARDURILE CARE SUNT LINK-uri */
     .card {
       background-color: #f9f9f9;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       padding: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      /* Flex item configuration */
-      flex: 1 1 250px; /* Baza de 250px, poate creste sau se micsora */
-      max-width: 350px; /* Limită maximă pe ecrane mari */
+      flex: 1 1 250px;
+      max-width: 350px;
       
-      /* STIL NOU PENTRU LINK-UL CARDULUI */
       text-decoration: none;
-      color: #333; /* Păstrează culoarea textului normală */
-      display: block; /* Face ca linkul să ocupe tot cardul */
+      color: #333;
+      display: block;
       cursor: pointer;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3); /* Efect subtil la hover */
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
     }
 
     .card img {
-      max-width: 100%; /* Cerinta: Imaginile sa se redimensioneze proportional */
+      max-width: 100%;
       height: 180px;
       object-fit: cover;
       border-radius: 10px;
